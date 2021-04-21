@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text } from 'react-native';
 
 import wateringImg from '../assets/watering.png';
+import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 
 export const Welcome: React.FC = () => {
@@ -17,16 +18,10 @@ export const Welcome: React.FC = () => {
         Não esqueça mais de regar suas {'\n'}
         plantas. Nós cuidamos de lembrar você sempre que precisar.
       </Text>
-      <Button />
+      <Button title='>' />
     </SafeAreaView>
   );
 };
-
-const Button = () => (
-  <TouchableOpacity style={styles.button} activeOpacity={0.7}>
-    <Text style={styles.buttonText}>&gt;</Text>
-  </TouchableOpacity>
-);
 
 const styles = StyleSheet.create({
   container: {
@@ -48,21 +43,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: colors.heading,
   },
-  button: {
-    backgroundColor: colors.green,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 16,
-    marginBottom: 10,
-    height: 56,
-    width: 56,
-  },
   image: {
     width: 292,
     height: 284,
-  },
-  buttonText: {
-    color: colors.white,
-    fontSize: 24,
   },
 });
