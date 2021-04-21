@@ -1,7 +1,21 @@
 import React from 'react';
 import { Welcome } from './src/screens/Welcome';
+import { useFonts, Jost_400Regular, Jost_600SemiBold } from '@expo-google-fonts/jost';
+import AppLoading from 'expo-app-loading';
+import {} from 'react-native';
 
-const App: React.FC = () => <Welcome />;
+const App: React.FC = () => {
+  const [fonstLoaded] = useFonts({
+    Jost_400Regular,
+    Jost_600SemiBold,
+  });
+
+  if (!fonstLoaded) {
+    return <AppLoading />;
+  }
+
+  return <Welcome />;
+};
 
 export default App;
 
