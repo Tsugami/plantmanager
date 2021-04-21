@@ -18,14 +18,18 @@ export function Welcome() {
         plantas. Nós cuidamos de lembrar você {'\n'}
         sempre que precisar.
       </Text>
-      <TouchableOpacity style={styles.button} activeOpacity={0.7}>
-        <Text style={styles.buttonText}>
-          &gt;
-        </Text>
-      </TouchableOpacity>
+      <Button />
     </SafeAreaView>
   )
 }
+
+const Button = () => (
+  <TouchableOpacity style={styles.button} activeOpacity={0.7}>
+    <Text style={styles.buttonText}>
+      &gt;
+    </Text>
+  </TouchableOpacity>
+)
 
 const styles = StyleSheet.create({
   container: {
