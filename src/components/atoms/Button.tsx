@@ -4,12 +4,13 @@ import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react
 import colors from '../../styles/colors';
 
 interface ButtonProps extends TouchableOpacityProps {
-  title: string;
+  title?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({ title, ...props }) => (
+export const Button: React.FC<ButtonProps> = ({ title, children, ...props }) => (
   <TouchableOpacity style={styles.button} activeOpacity={0.7} {...props}>
-    <Text style={styles.buttonText}>{title}</Text>
+    {title && <Text style={styles.buttonText}>{title}</Text>}
+    {children}
   </TouchableOpacity>
 );
 

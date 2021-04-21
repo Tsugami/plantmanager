@@ -4,6 +4,7 @@ import { Image, SafeAreaView, StyleSheet, Text, Dimensions } from 'react-native'
 import wateringImg from '../assets/watering.png';
 import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
+import { Feather } from '@expo/vector-icons';
 
 export const Welcome: React.FC = () => {
   return (
@@ -18,7 +19,9 @@ export const Welcome: React.FC = () => {
         Não esqueça mais de regar suas {'\n'}
         plantas. Nós cuidamos de lembrar você sempre que precisar.
       </Text>
-      <Button title='>' />
+      <Button>
+        <Feather name='chevron-right' size={24} color='black' style={styles.buttonIcon} />
+      </Button>
     </SafeAreaView>
   );
 };
@@ -44,5 +47,8 @@ const styles = StyleSheet.create({
   },
   image: {
     height: Dimensions.get('window').width * 0.7,
+  },
+  buttonIcon: {
+    color: colors.white,
   },
 });
