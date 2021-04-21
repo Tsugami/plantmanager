@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 import emojis from '../styles/emojis';
@@ -8,22 +8,16 @@ import fonts from '../styles/fonts';
 export const Confirmation: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <View style={styles.content}>
-          <View style={styles.header}>
-            <Text style={styles.emoji}>{emojis.grin}</Text>
-            <Text style={styles.title}>Prontinho</Text>
-            <Text style={styles.text}>
-              Agora vamos começar a cuidar das suas {'\n'} plantinhas com muito cuidado.
-            </Text>
-          </View>
-          <View style={styles.footer}>
-            <Button title='Começar' />
-          </View>
+      <View style={styles.content}>
+        <Text style={styles.emoji}>{emojis.grin}</Text>
+        <Text style={styles.title}>Prontinho</Text>
+        <Text style={styles.subtitle}>
+          Agora vamos começar a cuidar das suas plantinhas com muito cuidado.
+        </Text>
+        <View style={styles.footer}>
+          <Button title='Começar' />
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -31,7 +25,6 @@ export const Confirmation: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
     alignItems: 'center',
     alignContent: 'space-around',
   },
@@ -49,23 +42,23 @@ const styles = StyleSheet.create({
     fontSize: 70,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     textAlign: 'center',
     color: colors.heading,
     fontFamily: fonts.heading,
-    lineHeight: 34,
-    marginTop: 20,
+    lineHeight: 38,
+    marginTop: 15,
   },
   footer: {
     marginTop: 40,
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
   },
-  header: {
-    alignItems: 'center',
-  },
-  text: {
+  subtitle: {
     fontFamily: fonts.text,
     textAlign: 'center',
+    fontSize: 17,
+    color: colors.heading,
+    paddingVertical: 10,
   },
 });
