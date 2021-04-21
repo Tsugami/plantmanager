@@ -4,7 +4,7 @@ import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-n
 import wateringImg from '../assets/watering.png';
 import colors from '../styles/colors';
 
-export function Welcome() {
+export const Welcome: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>
@@ -20,7 +20,7 @@ export function Welcome() {
       <Button />
     </SafeAreaView>
   );
-}
+};
 
 const Button = () => (
   <TouchableOpacity style={styles.button} activeOpacity={0.7}>
