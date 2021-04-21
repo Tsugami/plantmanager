@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -14,6 +14,20 @@ import emojis from '../styles/emojis';
 import fonts from '../styles/fonts';
 
 export const UserIdentification: React.FC = () => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const handleInputBlur = () => {
+    setIsFocused(false);
+  };
+  const handleInputFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleInputChangeText = (text: string) => {
+    setUsername(text);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -22,10 +36,17 @@ export const UserIdentification: React.FC = () => {
         <View style={styles.content}>
           <View style={styles.form}>
             <View style={styles.header}>
-              <Text style={styles.emoji}>{emojis.smiley}</Text>
+              <Text style={styles.emoji}>{username ? emojis.smile : emojis.smiley}</Text>
               <Text style={styles.title}>Como podemos {'\n'} chamar você?</Text>
             </View>
-            <TextInput style={styles.input} placeholder='Digite seu nome' />
+            <TextInput
+              style={[styles.input, isFocused || username ? styles.inputFocused : {}]}
+              placeholder='Digite seu nome'
+              value={username}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
+              onChangeText={handleInputChangeText}
+            />
             <View style={styles.footer}>
               <Button title='Confirmar' />
             </View>
@@ -81,5 +102,8 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
+  },
+  inputFocused: {
+    borderColor: colors.green,
   },
 });
