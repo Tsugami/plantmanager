@@ -9,8 +9,8 @@ import {
   Text,
   TextInput,
   View,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 import emojis from '../styles/emojis';
