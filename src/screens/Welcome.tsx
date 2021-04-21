@@ -15,21 +15,18 @@ export function Welcome() {
       <Image source={wateringImg} style={styles.image} />
       <Text style={styles.subtitle}>
         Não esqueça mais de regar suas {'\n'}
-        plantas. Nós cuidamos de lembrar você
-        sempre que precisar.
+        plantas. Nós cuidamos de lembrar você sempre que precisar.
       </Text>
       <Button />
     </SafeAreaView>
-  )
+  );
 }
 
 const Button = () => (
   <TouchableOpacity style={styles.button} activeOpacity={0.7}>
-    <Text style={styles.buttonText}>
-      &gt;
-    </Text>
+    <Text style={styles.buttonText}>&gt;</Text>
   </TouchableOpacity>
-)
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -43,7 +40,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: colors.heading,
-    marginTop: 38
+    marginTop: 38,
   },
   subtitle: {
     textAlign: 'center',
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 10,
     height: 56,
-    width: 56
+    width: 56,
   },
   image: {
     width: 292,
@@ -67,5 +64,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.white,
     fontSize: 24,
-  }
-})
+  },
+});
