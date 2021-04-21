@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserIdentification } from './src/screens/UserIdentification';
+import { Confirmation } from './src/screens/Confirmation';
 import { useFonts, Jost_400Regular, Jost_600SemiBold } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
 
@@ -13,7 +13,7 @@ const App: React.FC = () => {
     return <AppLoading />;
   }
 
-  return <UserIdentification />;
+  return <Confirmation />;
 };
 
 export default App;
