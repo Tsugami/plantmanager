@@ -1,5 +1,13 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 import emojis from '../styles/emojis';
@@ -8,16 +16,22 @@ import fonts from '../styles/fonts';
 export const UserIdentification: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.form}>
-          <Text style={styles.emoji}>{emojis.smiley}</Text>
-          <Text style={styles.title}>Como podemos {'\n'} chamar você?</Text>
-          <TextInput style={styles.input} placeholder='Digite seu nome' />
-          <View style={styles.footer}>
-            <Button title='Confirmar' />
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={styles.content}>
+          <View style={styles.form}>
+            <View style={styles.header}>
+              <Text style={styles.emoji}>{emojis.smiley}</Text>
+              <Text style={styles.title}>Como podemos {'\n'} chamar você?</Text>
+            </View>
+            <TextInput style={styles.input} placeholder='Digite seu nome' />
+            <View style={styles.footer}>
+              <Button title='Confirmar' />
+            </View>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -64,5 +78,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
     width: '100%',
     paddingHorizontal: 20,
+  },
+  header: {
+    alignItems: 'center',
   },
 });
