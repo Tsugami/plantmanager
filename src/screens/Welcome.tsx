@@ -15,7 +15,7 @@ export function Welcome() {
       <Image source={wateringImg} style={styles.image} />
       <Text style={styles.subtitle}>
         Não esqueça mais de regar suas {'\n'}
-        plantas. Nós cuidamos de lembrar você {'\n'}
+        plantas. Nós cuidamos de lembrar você
         sempre que precisar.
       </Text>
       <Button />
