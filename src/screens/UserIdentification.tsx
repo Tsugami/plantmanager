@@ -1,6 +1,7 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -9,6 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 import emojis from '../styles/emojis';
@@ -38,30 +40,32 @@ export const UserIdentification: React.FC<StackScreenProps<RootStack, 'UserIdent
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <View style={styles.content}>
-          <View style={styles.form}>
-            <View style={styles.header}>
-              <Text style={styles.emoji}>{username ? emojis.smile : emojis.smiley}</Text>
-              <Text style={styles.title}>Como podemos {'\n'} chamar você?</Text>
-            </View>
-            <TextInput
-              style={[styles.input, isFocused || username ? styles.inputFocused : {}]}
-              placeholder='Digite seu nome'
-              value={username}
-              onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
-              onChangeText={setUsername}
-            />
-            <View style={styles.footer}>
-              <Button
-                title='Confirmar'
-                onPress={handleRedirect}
-                disabled={!username}
-                style={!username && styles.buttonDisabled}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.content}>
+            <View style={styles.form}>
+              <View style={styles.header}>
+                <Text style={styles.emoji}>{username ? emojis.smile : emojis.smiley}</Text>
+                <Text style={styles.title}>Como podemos {'\n'} chamar você?</Text>
+              </View>
+              <TextInput
+                style={[styles.input, isFocused || username ? styles.inputFocused : {}]}
+                placeholder='Digite seu nome'
+                value={username}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
+                onChangeText={setUsername}
               />
+              <View style={styles.footer}>
+                <Button
+                  title='Confirmar'
+                  onPress={handleRedirect}
+                  disabled={!username}
+                  style={!username && styles.buttonDisabled}
+                />
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
