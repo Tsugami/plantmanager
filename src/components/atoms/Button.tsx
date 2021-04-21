@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 16,
     marginBottom: 10,
-    height: 56,
-    width: 56,
+    minHeight: 56,
+    minWidth: 56,
   },
   buttonText: {
     color: colors.white,

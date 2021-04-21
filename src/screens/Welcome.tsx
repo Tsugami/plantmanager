@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, Dimensions } from 'react-native';
 
 import wateringImg from '../assets/watering.png';
 import { Button } from '../components/atoms/Button';
@@ -13,7 +13,7 @@ export const Welcome: React.FC = () => {
         suas plantas de {'\n'}
         forma fácil
       </Text>
-      <Image source={wateringImg} style={styles.image} />
+      <Image source={wateringImg} style={styles.image} resizeMode='contain' />
       <Text style={styles.subtitle}>
         Não esqueça mais de regar suas {'\n'}
         plantas. Nós cuidamos de lembrar você sempre que precisar.
@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 20,
+    justifyContent: 'space-around',
   },
   title: {
     fontSize: 32,
@@ -44,7 +43,6 @@ const styles = StyleSheet.create({
     color: colors.heading,
   },
   image: {
-    width: 292,
-    height: 284,
+    height: Dimensions.get('window').width * 0.7,
   },
 });
