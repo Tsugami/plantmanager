@@ -4,8 +4,9 @@ import colors from '../styles/colors';
 import { Welcome } from '../screens/Welcome';
 import { UserIdentification } from '../screens/UserIdentification';
 import { Confirmation } from '../screens/Confirmation';
+import { RootStack } from '../types';
 
-const StackRoutes = createStackNavigator();
+const StackRoutes = createStackNavigator<RootStack>();
 
 const AppRoutes: React.FC = () => (
   <StackRoutes.Navigator

@@ -1,3 +1,4 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -12,16 +13,24 @@ import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 import emojis from '../styles/emojis';
 import fonts from '../styles/fonts';
+import { RootStack } from '../types';
 
-export const UserIdentification: React.FC = () => {
+export const UserIdentification: React.FC<StackScreenProps<RootStack, 'UserIdentification'>> = ({
+  navigation,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
   const [username, setUsername] = useState('');
 
   const handleInputBlur = () => {
     setIsFocused(false);
   };
+
   const handleInputFocus = () => {
     setIsFocused(true);
+  };
+
+  const handleRedirect = () => {
+    navigation.navigate('Confirmation');
   };
 
   return (
@@ -44,7 +53,7 @@ export const UserIdentification: React.FC = () => {
               onChangeText={setUsername}
             />
             <View style={styles.footer}>
-              <Button title='Confirmar' />
+              <Button title='Confirmar' onPress={handleRedirect} />
             </View>
           </View>
         </View>

@@ -6,8 +6,14 @@ import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 import { Feather } from '@expo/vector-icons';
 import fonts from '../styles/fonts';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStack } from '../types';
 
-export const Welcome: React.FC = () => {
+export const Welcome: React.FC<StackScreenProps<RootStack, 'Welcome'>> = ({ navigation }) => {
+  const handleRedirect = () => {
+    navigation.navigate('UserIdentification');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
@@ -21,7 +27,7 @@ export const Welcome: React.FC = () => {
           Não esqueça mais de regar suas {'\n'} plantas. Nós cuidamos de lembrar você sempre que
           precisar.
         </Text>
-        <Button>
+        <Button onPress={handleRedirect}>
           <Feather name='chevron-right' size={24} color='black' style={styles.buttonIcon} />
         </Button>
       </View>

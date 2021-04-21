@@ -1,11 +1,19 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Button } from '../components/atoms/Button';
 import colors from '../styles/colors';
 import emojis from '../styles/emojis';
 import fonts from '../styles/fonts';
+import { RootStack } from '../types';
 
-export const Confirmation: React.FC = () => {
+export const Confirmation: React.FC<StackScreenProps<RootStack, 'Confirmation'>> = ({
+  navigation,
+}) => {
+  const handleRedirect = () => {
+    navigation.navigate('Welcome');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -15,7 +23,7 @@ export const Confirmation: React.FC = () => {
           Agora vamos começar a cuidar das suas plantinhas com muito cuidado.
         </Text>
         <View style={styles.footer}>
-          <Button title='Começar' />
+          <Button title='Começar' onPress={handleRedirect} />
         </View>
       </View>
     </SafeAreaView>
