@@ -24,10 +24,6 @@ export const UserIdentification: React.FC = () => {
     setIsFocused(true);
   };
 
-  const handleInputChangeText = (text: string) => {
-    setUsername(text);
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -45,7 +41,7 @@ export const UserIdentification: React.FC = () => {
               value={username}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
-              onChangeText={handleInputChangeText}
+              onChangeText={setUsername}
             />
             <View style={styles.footer}>
               <Button title='Confirmar' />
