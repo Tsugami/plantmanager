@@ -2,9 +2,7 @@ import React from 'react';
 import { Welcome } from './src/screens/Welcome';
 
 export default function App() {
-  return (
-    <Welcome />
-  )
+  return <Welcome />;
 }
 
 // import { StatusBar } from 'expo-status-bar';
