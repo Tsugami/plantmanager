@@ -20,8 +20,14 @@ type ButtonProps =
   | (TitleProps & TouchableOpacityProps)
   | (Partial<TitleProps> & TouchableOpacityProps);
 
-export const Button: React.FC<ButtonProps> = ({ title, titleStyle = {}, children, ...props }) => (
-  <TouchableOpacity style={styles.button} activeOpacity={0.7} {...props}>
+export const Button: React.FC<ButtonProps> = ({
+  title,
+  titleStyle = {},
+  children,
+  style,
+  ...props
+}) => (
+  <TouchableOpacity style={[styles.button, style]} activeOpacity={0.7} {...props}>
     {title && <Text style={[styles.text, titleStyle]}>{title}</Text>}
     {children}
   </TouchableOpacity>

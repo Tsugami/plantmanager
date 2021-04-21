@@ -53,7 +53,12 @@ export const UserIdentification: React.FC<StackScreenProps<RootStack, 'UserIdent
               onChangeText={setUsername}
             />
             <View style={styles.footer}>
-              <Button title='Confirmar' onPress={handleRedirect} />
+              <Button
+                title='Confirmar'
+                onPress={handleRedirect}
+                disabled={!username}
+                style={!username && styles.buttonDisabled}
+              />
             </View>
           </View>
         </View>
@@ -110,5 +115,8 @@ const styles = StyleSheet.create({
   },
   inputFocused: {
     borderColor: colors.green,
+  },
+  buttonDisabled: {
+    backgroundColor: colors.green_light,
   },
 });
