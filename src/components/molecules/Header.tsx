@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import avatarImg from '../../assets/avatar.jpg';
@@ -10,9 +10,9 @@ export const Header: React.FC = () => (
   <View style={styles.container}>
     <View>
       <Text style={styles.greeting}>Olá,</Text>
-      <Text style={styles.userName}>Rodrigo</Text>
+      <Text style={styles.userName}>Yslan</Text>
     </View>
-    <Image source={avatarImg} style={styles.image} />
+    <Image source={avatarImg as ImageSourcePropType} style={styles.image} />
   </View>
 );
 
