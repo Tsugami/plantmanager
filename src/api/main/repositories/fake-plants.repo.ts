@@ -1,8 +1,10 @@
 import { Plant } from '../../domain/entities/plant';
+import { SortParam } from '../../domain/helpers/sort-param';
 import PlantRepo from '../../domain/repositories/plant-repo';
+import { sortItems } from '../helpers/sort-items';
 
 export default class FakePlantRepo implements PlantRepo {
-  fetchPlants(): Promise<Plant[]> {
+  fetchPlants({ sort }: SortParam<Plant, 'name'> = {}): Promise<Plant[]> {
     return Promise.resolve([
       {
         id: '1',
@@ -131,6 +133,6 @@ export default class FakePlantRepo implements PlantRepo {
           repeat_every: 'day',
         },
       },
-    ]);
+    ]).then(sortItems(sort?.field ?? 'id', sort?.order));
   }
 }
