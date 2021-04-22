@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -11,6 +11,8 @@ import { plantEnviromentRepo, plantsRepo } from '../api';
 import { PlantEnviroment } from '../api/domain/entities/plant-enviroment';
 import { Plant } from '../api/domain/entities/plant';
 import { PlantCardPrimary } from '../components/atoms/PlantCardPrimary';
+import { Load } from '../components/atoms/Load';
+import { removeDuplicateElems } from '../helpers/removeDuplicateElements';
 
 const allEnviroments = {
   key: 'all',
@@ -18,9 +20,21 @@ const allEnviroments = {
 };
 
 export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> = () => {
-  const [enviroments, setEnviroments] = useState<PlantEnviroment[]>([]);
   const [enviromentSelected, setEnviromentSelected] = useState<string | 'all'>(allEnviroments.key);
+
+  const [enviroments, setEnviroments] = useState<PlantEnviroment[]>([]);
   const [plants, setPlants] = useState<Plant[]>([]);
+  const [loadingEnviroments, setLoadingEnviroments] = useState(true);
+  const [loadingPlants, setLoadingPlants] = useState(true);
+
+  const [page, setPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [loadedAll, setLoadedAll] = useState(false);
+
+  const loading = useMemo(() => loadingEnviroments || loadingPlants, [
+    loadingEnviroments,
+    loadingPlants,
+  ]);
 
   const filteredPlants = useMemo(
     () =>
@@ -33,10 +47,34 @@ export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> =
   useEffect(() => {
     plantEnviromentRepo
       .fetchPlantEnviroment({ sort: { field: 'title', order: 'asc' } })
-      .then(setEnviroments);
-
-    plantsRepo.fetchPlants({ sort: { field: 'name', order: 'asc' } }).then(setPlants);
+      .then(setEnviroments)
+      .finally(() => setLoadingEnviroments(false));
   }, []);
+
+  useEffect(() => {
+    plantsRepo
+      .fetchPlants({ sort: { field: 'name', order: 'asc' } })
+      .then((newPlants) =>
+        setPlants((oldPlants) => removeDuplicateElems(oldPlants.concat(newPlants), 'name')),
+      )
+      .finally(() => {
+        setLoadingPlants(false);
+        setLoadingMore(false);
+      });
+  }, [page]);
+
+  const handleFetchMore = (distance: number) => {
+    if (distance < 1) {
+      return;
+    }
+
+    setLoadingMore(true);
+    setPage((oldPage) => oldPage + 1);
+  };
+
+  if (loading) {
+    return <Load />;
+  }
 
   return (
     <View style={styles.container}>
@@ -65,8 +103,11 @@ export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> =
         <FlatList
           data={filteredPlants}
           renderItem={({ item }) => <PlantCardPrimary data={item} />}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) => item.id + index}
           numColumns={2}
+          onEndReachedThreshold={0.1}
+          onEndReached={({ distanceFromEnd }) => handleFetchMore(distanceFromEnd)}
+          ListFooterComponent={loadingMore ? <ActivityIndicator color={colors.green} /> : null}
         />
       </View>
     </View>
