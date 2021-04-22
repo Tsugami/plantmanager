@@ -11,7 +11,7 @@ export const Confirmation: React.FC<StackScreenProps<RootStack, 'Confirmation'>>
   navigation,
 }) => {
   const handleRedirect = () => {
-    navigation.navigate('Welcome');
+    navigation.navigate('PlantSelect');
   };
 
   return (
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    alignContent: 'space-around',
+    alignContent: 'center',
+    backgroundColor: colors.background,
   },
   content: {
     flex: 1,
