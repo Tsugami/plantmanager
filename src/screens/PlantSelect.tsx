@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 import colors from '../styles/colors';
@@ -7,8 +7,22 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStack } from '../types';
 import { Header } from '../components/molecules/Header';
 import { EnviromentButton } from '../components/atoms/EnviromentButton';
+import { plantEnviromentRepo } from '../api';
+import { PlantEnviroment } from '../api/domain/entities/plant-enviroment';
+
+const allEnviroments = {
+  key: 'all',
+  title: 'Todos',
+};
 
 export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> = () => {
+  const [enviroments, setEnviroments] = useState<PlantEnviroment[]>([]);
+  const [enviromentSelected, setEnviromentSelected] = useState<string>(allEnviroments.key);
+
+  useEffect(() => {
+    plantEnviromentRepo.fetchPlantEnviroment().then(setEnviroments);
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -18,22 +32,15 @@ export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> =
       </View>
       <View>
         <FlatList
-          data={[
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-            'Cozinha!',
-          ]}
-          renderItem={({ item, index }) => <EnviromentButton title={item} action={index === 1} />}
-          keyExtractor={(item, index) => String(item) + index}
+          data={[allEnviroments, ...enviroments]}
+          renderItem={({ item }) => (
+            <EnviromentButton
+              title={item.title}
+              action={enviromentSelected === item.key}
+              onPress={() => setEnviromentSelected(item.key)}
+            />
+          )}
+          keyExtractor={(item) => item.key}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.enviromentList}
           horizontal
