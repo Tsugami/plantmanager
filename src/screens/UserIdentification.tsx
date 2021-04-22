@@ -16,6 +16,8 @@ import colors from '../styles/colors';
 import emojis from '../styles/emojis';
 import fonts from '../styles/fonts';
 import { RootStack } from '../types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AsyncStorageKeys } from '../helpers/Constants';
 
 export const UserIdentification: React.FC<StackScreenProps<RootStack, 'UserIdentification'>> = ({
   navigation,
@@ -31,7 +33,8 @@ export const UserIdentification: React.FC<StackScreenProps<RootStack, 'UserIdent
     setIsFocused(true);
   };
 
-  const handleRedirect = () => {
+  const handleRedirect = async () => {
+    await AsyncStorage.setItem(AsyncStorageKeys.USERNAME, username);
     navigation.navigate('Confirmation');
   };
 
