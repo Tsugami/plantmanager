@@ -7,8 +7,10 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStack } from '../types';
 import { Header } from '../components/molecules/Header';
 import { EnviromentButton } from '../components/atoms/EnviromentButton';
-import { plantEnviromentRepo } from '../api';
+import { plantEnviromentRepo, plantsRepo } from '../api';
 import { PlantEnviroment } from '../api/domain/entities/plant-enviroment';
+import { Plant } from '../api/domain/entities/plant';
+import { PlantCardPrimary } from '../components/atoms/PlantCardPrimary';
 
 const allEnviroments = {
   key: 'all',
@@ -18,9 +20,11 @@ const allEnviroments = {
 export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> = () => {
   const [enviroments, setEnviroments] = useState<PlantEnviroment[]>([]);
   const [enviromentSelected, setEnviromentSelected] = useState<string>(allEnviroments.key);
+  const [plants, setPlants] = useState<Plant[]>([]);
 
   useEffect(() => {
     plantEnviromentRepo.fetchPlantEnviroment().then(setEnviroments);
+    plantsRepo.fetchPlants().then(setPlants);
   }, []);
 
   return (
@@ -44,6 +48,19 @@ export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> =
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.enviromentList}
           horizontal
+        />
+      </View>
+      <View style={styles.plants}>
+        <FlatList
+          data={plants}
+          renderItem={({ item }) => (
+            <PlantCardPrimary
+              data={item}
+              // onPress={() => setEnviromentSelected(item.key)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
         />
       </View>
     </View>
@@ -77,5 +94,10 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     marginLeft: 32,
     marginVertical: 32,
+  },
+  plants: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 32,
   },
 });

@@ -4,7 +4,7 @@ interface Frequency {
 }
 
 export interface Plant {
-  id: number;
+  id: string;
   name: string;
   about: string;
   water_tips: string;
