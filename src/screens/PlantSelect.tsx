@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 import colors from '../styles/colors';
@@ -19,8 +19,16 @@ const allEnviroments = {
 
 export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> = () => {
   const [enviroments, setEnviroments] = useState<PlantEnviroment[]>([]);
-  const [enviromentSelected, setEnviromentSelected] = useState<string>(allEnviroments.key);
+  const [enviromentSelected, setEnviromentSelected] = useState<string | 'all'>(allEnviroments.key);
   const [plants, setPlants] = useState<Plant[]>([]);
+
+  const filteredPlants = useMemo(
+    () =>
+      enviromentSelected === 'all'
+        ? plants
+        : plants.filter((plant) => plant.environments.includes(enviromentSelected)),
+    [plants, enviromentSelected],
+  );
 
   useEffect(() => {
     plantEnviromentRepo
@@ -55,13 +63,8 @@ export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> =
       </View>
       <View style={styles.plants}>
         <FlatList
-          data={plants.sort()}
-          renderItem={({ item }) => (
-            <PlantCardPrimary
-              data={item}
-              // onPress={() => setEnviromentSelected(item.key)}
-            />
-          )}
+          data={filteredPlants}
+          renderItem={({ item }) => <PlantCardPrimary data={item} />}
           keyExtractor={(item) => item.id}
           numColumns={2}
         />
