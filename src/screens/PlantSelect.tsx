@@ -17,14 +17,18 @@ const allEnviroments = {
   title: 'Todos',
 };
 
+function sortItems<T>(key: keyof T): (arr: T[]) => T[] {
+  return (arr) => arr.sort((a, b) => String(a[key]).localeCompare(String(b[key])));
+}
+
 export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> = () => {
   const [enviroments, setEnviroments] = useState<PlantEnviroment[]>([]);
   const [enviromentSelected, setEnviromentSelected] = useState<string>(allEnviroments.key);
   const [plants, setPlants] = useState<Plant[]>([]);
 
   useEffect(() => {
-    plantEnviromentRepo.fetchPlantEnviroment().then(setEnviroments);
-    plantsRepo.fetchPlants().then(setPlants);
+    plantEnviromentRepo.fetchPlantEnviroment().then(sortItems('title')).then(setEnviroments);
+    plantsRepo.fetchPlants().then(sortItems('name')).then(setPlants);
   }, []);
 
   return (
@@ -52,7 +56,7 @@ export const PlantSelect: React.FC<StackScreenProps<RootStack, 'PlantSelect'>> =
       </View>
       <View style={styles.plants}>
         <FlatList
-          data={plants}
+          data={plants.sort()}
           renderItem={({ item }) => (
             <PlantCardPrimary
               data={item}
