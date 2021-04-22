@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 20,
     marginTop: getStatusBarHeight(),
-    backgroundColor: colors.red,
+    backgroundColor: colors.background,
     padding: 20,
   },
   image: {
