@@ -3,4 +3,5 @@ export type RootStack = {
   UserIdentification: undefined;
   Confirmation: undefined;
   PlantSelect: undefined;
+  PlantSave: undefined;
 };
